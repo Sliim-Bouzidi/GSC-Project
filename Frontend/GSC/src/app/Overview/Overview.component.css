@@ -5,6 +5,12 @@
   margin-bottom: 5%;
   transition: transform 0.3s; /* Add a transition for smooth animation */
 }
+
+
+::ng-deep .p-inputtext {
+  width: -webkit-fill-available;
+  margin: 0;
+}
 @media print {
     /* Reset margins for the whole page */
     @page {
