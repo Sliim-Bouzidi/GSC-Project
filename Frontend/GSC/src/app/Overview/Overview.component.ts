@@ -40,6 +40,13 @@ export class OverviewComponent implements OnInit {
     { label: 'In Progress', value: 'In Progress' }
   ];
   
+
+  paidOptions: any[] = [
+    { label: 'Paid', value: 'Paid' },
+    { label: 'Not Paid', value: 'Not Paid' }
+  ];
+
+
   ngOnInit() {
     this.commands = [
       {
