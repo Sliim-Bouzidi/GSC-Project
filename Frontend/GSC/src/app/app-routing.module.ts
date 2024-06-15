@@ -4,6 +4,7 @@ import { OverviewComponent } from './Overview/Overview.component';
 
 const routes: Routes = [
   { path: '', component: OverviewComponent }
+  
 ];
 
 @NgModule({
