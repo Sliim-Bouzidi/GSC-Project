@@ -1,9 +1,9 @@
 ::ng-deep .p-card {
-    margin-top: 50px;
-    margin-left: 200px;
-    margin-right: 200px;
-    margin-bottom: 50px;
-    transition: transform 0.3s; /* Add a transition for smooth animation */
+  margin-top: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 5%;
+  transition: transform 0.3s; /* Add a transition for smooth animation */
 }
 @media print {
     /* Reset margins for the whole page */

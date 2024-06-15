@@ -34,7 +34,11 @@ export class OverviewComponent implements OnInit {
     { label: 'Sauvegarder', icon: 'pi pi-save' , command: () => this.Save() } 
   ];
 
-
+  statuses = [
+    { label: 'Finished', value: 'Finished' },
+    { label: 'Not Finished', value: 'Not Finished' },
+    { label: 'In Progress', value: 'In Progress' }
+  ];
   
   ngOnInit() {
     this.commands = [

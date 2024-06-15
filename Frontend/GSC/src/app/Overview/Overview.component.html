@@ -15,7 +15,7 @@
 
     [value]="commands"
 
-    [resizableColumns]="true" 
+
     selectionMode="multiple" 
     [reorderableColumns]="true"
     [(selection)]="selectedCommands" >
@@ -66,17 +66,19 @@
             <td [pEditableColumn]="client.statusFinished" pEditableColumnField="statusFinished">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input 
-                            pInputText 
-                            type="text"     
-                            [(ngModel)]="client.statusFinished" />
+                        <p-dropdown 
+                            [options]="statuses" 
+                            [(ngModel)]="client.statusFinished" 
+                            optionLabel="label" 
+                            optionValue="value" 
+                            placeholder="Select a Status">
+                        </p-dropdown>
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{ client.statusFinished }}
                     </ng-template>
                 </p-cellEditor>
             </td>
-
 
             <td [pEditableColumn]="client.paid" pEditableColumnField="paid">
                 <p-cellEditor>
