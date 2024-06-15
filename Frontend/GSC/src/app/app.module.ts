@@ -3,11 +3,13 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavBarComponent } from './NavBar/NavBar.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [	
+    AppComponent,
+      NavBarComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
