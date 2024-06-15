@@ -204,28 +204,33 @@ export class OverviewComponent implements OnInit {
   }
 
 
-  NewRow()
-  {
-    const newRow : Commande = new Commande
-    this.commands.push(newRow)
-    this.messageService.add({severity:'success', summary:'Ajouter', detail: " Nouveau client a ete ajouter"});
+  NewRow() {
+    const newRow: Commande = new Commande();
+  
+    const lastCommande = this.commands[this.commands.length - 1];
+    newRow.commandId = lastCommande.commandId + 1;
+  
+    this.commands.push(newRow);
+  
+    this.messageService.add({ severity: 'success', summary: 'Ajouter', detail: 'Nouveau client a été ajouté' });
   }
-
+  
+  
 
   selectedCommands? : Commande[]  = [];
 
   Remove() {
-    if (this.selectedCommands) {
+    if (this.selectedCommands && this.selectedCommands.length > 0) {
       for (const item of this.selectedCommands) {
         this.commands = this.commands.filter(i => i !== item);
+        const clientName = item.clientName; 
+        this.messageService.add({severity:'success', summary:'Supprimer', detail: `Client "${clientName}" a été supprimé`});
       }
       this.selectedCommands = [];
-      this.messageService.add({severity:'success', summary:'Ajouter', detail: " Client a ete supprimer"});
     }
   }
   
-
-
+  
 
   Export() {
     // Define the worksheet
@@ -240,45 +245,58 @@ export class OverviewComponent implements OnInit {
     this.messageService.add({severity:'success', summary:'Ajouter', detail: " Tableau a ete exporter"});
 }
 
+Import() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.xlsx';
 
-  Import() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.xlsx';
+  input.onchange = (e: any) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
 
-    input.onchange = (e: any) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
+    reader.onload = (event: any) => {
+      const data = new Uint8Array(event.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
 
-        reader.onload = (event: any) => {
-            const data = new Uint8Array(event.target.result);
-            const workbook = XLSX.read(data, { type: 'array' });
+      // Assuming the first sheet is the one you want to import
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
 
-            // Assuming the first sheet is the one you want to import
-            const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      // Convert the worksheet to an array of objects
+      const importedData = XLSX.utils.sheet_to_json(worksheet, { header: 1 }).slice(1);
 
-            // Convert the worksheet to an array of objects
-            const importedList: Commande[] = XLSX.utils.sheet_to_json(worksheet, { header: 1 }).slice(1).map((row: any) => {
-                const commande = new Commande();
-                commande.clientName = row[1];
-                // Assuming row indices for other properties align with Commande class
-                commande.dateStart = new Date(row[2]); // Adjust as per your date format
-                commande.dateEnd = new Date(row[3]); // Adjust as per your date format
-                commande.paid = row[4];
-                commande.statusFinished = row[5];
-                commande.problemDescription = row[6];
-                
-                return commande;
-            });
+      // Determine the starting commandId
+      const startCommandId = this.commands.length > 0 ? this.commands[this.commands.length - 1].commandId + 1 : 1;
 
+      // Create Commande objects with correct commandId
+      const importedList: Commande[] = importedData.map((row: any, index: number) => {
+        const commande = new Commande();
+        commande.commandId = startCommandId + index;
+        commande.clientName = row[1];
+        // Assuming row indices for other properties align with Commande class
+        commande.dateStart = new Date(row[2]); // Adjust as per your date format
+        commande.dateEnd = new Date(row[3]); // Adjust as per your date format
+        commande.paid = row[4];
+        commande.statusFinished = row[5];
+        commande.problemDescription = row[6];
 
-        };
+        return commande;
+      });
 
-        reader.readAsArrayBuffer(file);
+      // Push importedList into this.commands array
+      this.commands.push(...importedList);
+
+      // Notify success message or perform any additional operations
+      this.messageService.add({ severity: 'success', summary: 'Import', detail: 'Liste importée avec succès' });
     };
 
-    input.click();
-  }
+    reader.readAsArrayBuffer(file);
+  };
+
+  input.click();
+}
+
+
+
 
 
   PrintTable()
