@@ -20,12 +20,14 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
+import { MonthComponent } from './Month/Month.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [		
     AppComponent,
       NavBarComponent,
-      OverviewComponent
+      OverviewComponent,
+      MonthComponent
    ],
   imports: [
     BrowserModule,
