@@ -7,6 +7,10 @@ import { NavBarComponent } from './NavBar/NavBar.component';
 import { OverviewComponent } from './Overview/Overview.component';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+
 @NgModule({
   declarations: [	
     AppComponent,
@@ -18,7 +22,12 @@ import { InputTextModule } from 'primeng/inputtext';
     AppRoutingModule,
     BrowserAnimationsModule,
     TableModule,
-    InputTextModule
+    InputTextModule,
+    ButtonModule,
+    IconFieldModule,
+    InputIconModule,
+   
+
   ],
   providers: [
     provideClientHydration()
