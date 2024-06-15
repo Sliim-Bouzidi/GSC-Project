@@ -1,4 +1,10 @@
-<p-table
+<p-card>
+
+    <div style="margin-bottom: 7px;" class="printable">
+        <p-menubar [model]="items"></p-menubar>
+    </div>
+    
+    <p-table
     #dt
   
     dataKey="id"
@@ -119,3 +125,6 @@
         </tr>
     </ng-template>
 </p-table>
+
+</p-card>
+

@@ -10,6 +10,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { CardModule } from 'primeng/card';
+import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
   declarations: [	
@@ -26,8 +28,8 @@ import { InputIconModule } from 'primeng/inputicon';
     ButtonModule,
     IconFieldModule,
     InputIconModule,
-   
-
+    CardModule,
+    MenubarModule,
   ],
   providers: [
     provideClientHydration()
