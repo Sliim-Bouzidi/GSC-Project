@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Commande } from '../shared/Commande';
 import * as XLSX from 'xlsx';
+import { MessageService } from 'primeng/api';
+
 @Component({
   selector: 'app-Overview',
   templateUrl: './Overview.component.html',
   styleUrls: ['./Overview.component.css']
 })
+
 export class OverviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private messageService: MessageService) { }
 
 
   commands: Commande[] = [];
@@ -79,7 +82,124 @@ export class OverviewComponent implements OnInit {
         paid: 'Paid',
         statusFinished: 'Finished',
         problemDescription: 'Integration with third-party API.'
-      }
+      },
+      {
+        commandId: 6,
+        clientName: 'Emily Davis',
+        dateStart: new Date('2024-06-08'),
+        dateEnd: new Date('2024-06-13'),
+        paid: 'Paid',
+        statusFinished: 'Finished',
+        problemDescription: 'Security audit and vulnerability assessment.'
+    },
+    {
+        commandId: 7,
+        clientName: 'Mark Wilson',
+        dateStart: new Date('2024-06-18'),
+        dateEnd: new Date('2024-06-22'),
+        paid: 'Not Paid',
+        statusFinished: 'Not Finished',
+        problemDescription: 'Memory leak investigation and optimization.'
+    },
+    {
+        commandId: 8,
+        clientName: 'Sarah Taylor',
+        dateStart: new Date('2024-06-02'),
+        dateEnd: new Date('2024-06-07'),
+        paid: 'Paid',
+        statusFinished: 'Finished',
+        problemDescription: 'Front-end framework migration and compatibility check.'
+    },
+    {
+      commandId: 9,
+      clientName: 'Emily Davis',
+      dateStart: new Date('2024-06-08'),
+      dateEnd: new Date('2024-06-13'),
+      paid: 'Paid',
+      statusFinished: 'Finished',
+      problemDescription: 'Security audit and vulnerability assessment.'
+  },
+  {
+      commandId: 10,
+      clientName: 'Mark Wilson',
+      dateStart: new Date('2024-06-18'),
+      dateEnd: new Date('2024-06-22'),
+      paid: 'Not Paid',
+      statusFinished: 'Not Finished',
+      problemDescription: 'Memory leak investigation and optimization.'
+  },
+  {
+      commandId: 11,
+      clientName: 'Sarah Taylor',
+      dateStart: new Date('2024-06-02'),
+      dateEnd: new Date('2024-06-07'),
+      paid: 'Paid',
+      statusFinished: 'Finished',
+      problemDescription: 'Front-end framework migration and compatibility check.'
+  },
+  {
+      commandId: 12,
+      clientName: 'Alex Rodriguez',
+      dateStart: new Date('2024-06-14'),
+      dateEnd: new Date('2024-06-19'),
+      paid: 'Not Paid',
+      statusFinished: 'Not Finished',
+      problemDescription: 'Backend API performance tuning.'
+  },
+  {
+      commandId: 13,
+      clientName: 'Olivia Martinez',
+      dateStart: new Date('2024-06-20'),
+      dateEnd: new Date('2024-06-25'),
+      paid: 'Paid',
+      statusFinished: 'Finished',
+      problemDescription: 'Mobile app responsiveness enhancement.'
+  },
+  {
+      commandId: 14,
+      clientName: 'William Clark',
+      dateStart: new Date('2024-06-03'),
+      dateEnd: new Date('2024-06-08'),
+      paid: 'Not Paid',
+      statusFinished: 'Not Finished',
+      problemDescription: 'Database schema redesign and optimization.'
+  },
+  {
+      commandId: 15,
+      clientName: 'Sophia Moore',
+      dateStart: new Date('2024-06-12'),
+      dateEnd: new Date('2024-06-17'),
+      paid: 'Paid',
+      statusFinished: 'Finished',
+      problemDescription: 'Implementing automated testing suite.'
+  },
+  {
+      commandId: 16,
+      clientName: 'Daniel Hall',
+      dateStart: new Date('2024-06-05'),
+      dateEnd: new Date('2024-06-10'),
+      paid: 'Not Paid',
+      statusFinished: 'Not Finished',
+      problemDescription: 'Cloud infrastructure cost optimization.'
+  },
+  {
+      commandId: 17,
+      clientName: 'Ava Garcia',
+      dateStart: new Date('2024-06-15'),
+      dateEnd: new Date('2024-06-20'),
+      paid: 'Paid',
+      statusFinished: 'Finished',
+      problemDescription: 'Implementing OAuth2 authentication.'
+  },
+  {
+      commandId: 18,
+      clientName: 'James Allen',
+      dateStart: new Date('2024-06-25'),
+      dateEnd: new Date('2024-06-30'),
+      paid: 'Not Paid',
+      statusFinished: 'Not Finished',
+      problemDescription: 'Backend data migration to new server.'
+  }
     ];
   }
 
@@ -88,24 +208,24 @@ export class OverviewComponent implements OnInit {
   {
     const newRow : Commande = new Commande
     this.commands.push(newRow)
+    this.messageService.add({severity:'success', summary:'Ajouter', detail: " Nouveau client a ete ajouter"});
   }
 
 
-  selectedCommande? : Commande;
+  selectedCommands? : Commande[]  = [];
 
   Remove() {
-    if (this.selectedCommande) {
-        const commandIdToRemove = this.selectedCommande.commandId;
-        this.commands = this.commands.filter(item => item.commandId !== commandIdToRemove);
+    if (this.selectedCommands) {
+      for (const item of this.selectedCommands) {
+        this.commands = this.commands.filter(i => i !== item);
+      }
+      this.selectedCommands = [];
+      this.messageService.add({severity:'success', summary:'Ajouter', detail: " Client a ete supprimer"});
     }
   }
+  
 
 
-
-  Search()
-  {
-
-  }
 
   Export() {
     // Define the worksheet
@@ -117,30 +237,8 @@ export class OverviewComponent implements OnInit {
 
     // Save the Excel file
     XLSX.writeFile(wb, 'exported_data.xlsx');
+    this.messageService.add({severity:'success', summary:'Ajouter', detail: " Tableau a ete exporter"});
 }
-
-
-  ExportPDF()
-  {
-
-  }
-
-
-  RemoveRow(){
-
-  }
-
-
-  PrintTable()
-  {
-    window.print();
-  }
-
-
-  Save()
-  {
-    
-  }
 
 
   Import() {
@@ -169,6 +267,7 @@ export class OverviewComponent implements OnInit {
                 commande.paid = row[4];
                 commande.statusFinished = row[5];
                 commande.problemDescription = row[6];
+                
                 return commande;
             });
 
@@ -179,7 +278,28 @@ export class OverviewComponent implements OnInit {
     };
 
     input.click();
-}
+  }
+
+
+  PrintTable()
+  {
+    window.print();
+  }
+
+
+
+
+  ExportPDF()
+  {
+    
+  }
+
+
+  Save()
+  {
+    this.messageService.add({severity:'success', summary:'Ajouter', detail: " Tableau a ete sauvegarder"});
+
+  }
 
 
 

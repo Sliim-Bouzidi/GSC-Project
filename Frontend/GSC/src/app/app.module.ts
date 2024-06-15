@@ -12,6 +12,13 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { CardModule } from 'primeng/card';
 import { MenubarModule } from 'primeng/menubar';
+import { FormsModule } from '@angular/forms';  
+import { ReactiveFormsModule } from '@angular/forms'; 
+import { CalendarModule } from 'primeng/calendar';
+import { MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [	
@@ -21,7 +28,9 @@ import { MenubarModule } from 'primeng/menubar';
    ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     TableModule,
     InputTextModule,
@@ -30,8 +39,12 @@ import { MenubarModule } from 'primeng/menubar';
     InputIconModule,
     CardModule,
     MenubarModule,
+    CalendarModule,
+    ConfirmDialogModule,
+    ToastModule,
   ],
   providers: [
+    MessageService , ConfirmationService,
     provideClientHydration()
   ],
   bootstrap: [AppComponent]
